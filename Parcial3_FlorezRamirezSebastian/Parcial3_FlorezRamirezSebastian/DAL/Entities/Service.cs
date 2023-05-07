@@ -10,5 +10,7 @@ namespace Parcial3_FlorezRamirezSebastian.DAL.Entities
 
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public float Price { get; set; }
+
+        public ICollection<Vehicle>Vehicles { get; set; }
     }
 }

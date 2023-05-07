@@ -12,7 +12,7 @@ using Parcial3_FlorezRamirezSebastian.DAL;
 namespace Parcial3_FlorezRamirezSebastian.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230507044711_InitialDatabase")]
+    [Migration("20230507055543_InitialDatabase")]
     partial class InitialDatabase
     {
         /// <inheritdoc />
@@ -69,7 +69,12 @@ namespace Parcial3_FlorezRamirezSebastian.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("ServiceId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("Vehicles");
                 });
@@ -92,9 +97,46 @@ namespace Parcial3_FlorezRamirezSebastian.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("vehicleId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("vehicleId");
+
                     b.ToTable("VehicleDetails");
+                });
+
+            modelBuilder.Entity("Parcial3_FlorezRamirezSebastian.DAL.Entities.Vehicle", b =>
+                {
+                    b.HasOne("Parcial3_FlorezRamirezSebastian.DAL.Entities.Service", "Service")
+                        .WithMany("Vehicles")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("Parcial3_FlorezRamirezSebastian.DAL.Entities.VehicleDetail", b =>
+                {
+                    b.HasOne("Parcial3_FlorezRamirezSebastian.DAL.Entities.Vehicle", "vehicle")
+                        .WithMany("vehicleDetails")
+                        .HasForeignKey("vehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("vehicle");
+                });
+
+            modelBuilder.Entity("Parcial3_FlorezRamirezSebastian.DAL.Entities.Service", b =>
+                {
+                    b.Navigation("Vehicles");
+                });
+
+            modelBuilder.Entity("Parcial3_FlorezRamirezSebastian.DAL.Entities.Vehicle", b =>
+                {
+                    b.Navigation("vehicleDetails");
                 });
 #pragma warning restore 612, 618
         }

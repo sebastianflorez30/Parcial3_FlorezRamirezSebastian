@@ -14,5 +14,9 @@ namespace Parcial3_FlorezRamirezSebastian.DAL.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string NumberPlate { get; set; } 
 
+        public Service Service { get; set; } //clave foranea servicios
+
+        public ICollection<VehicleDetail> vehicleDetails{ get; set; }
+
     }
 }

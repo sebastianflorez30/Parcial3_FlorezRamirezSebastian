@@ -2,12 +2,13 @@
 
 namespace Parcial3_FlorezRamirezSebastian.DAL.Entities
 {
-    public class Services:Entity
+    public class Service:Entity
     {
         [Display(Name="Servicio")] //nombre como quiere que se visualice
-        [Required]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Name { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public float Price { get; set; }
     }
 }

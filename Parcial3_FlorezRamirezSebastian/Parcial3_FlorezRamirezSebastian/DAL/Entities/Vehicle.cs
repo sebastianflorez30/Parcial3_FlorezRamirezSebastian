@@ -3,13 +3,15 @@ using System.Xml.Linq;
 
 namespace Parcial3_FlorezRamirezSebastian.DAL.Entities
 {
-    public class Vehicles:Entity //Creacion Entidades : Herencia 
+    public class Vehicle:Entity //Creacion Entidades : Herencia 
     {
         [Display(Name = "Propietario")]
-        [Required]
+        [Required(ErrorMessage ="El campo {0} es obligatorio")]
         public string Owner { get; set; }
+
+
         [Display(Name = "Placa")]
-        [Required]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string NumberPlate { get; set; } 
 
     }

@@ -15,6 +15,7 @@ namespace Parcial3_FlorezRamirezSebastian.DAL
         {
             await _context.Database.EnsureCreatedAsync(); //reemplaza el comando update-database
             await PopulateServicesAsync();
+            await _context.SaveChangesAsync();
         }
 
         private async Task PopulateServicesAsync()
@@ -27,9 +28,7 @@ namespace Parcial3_FlorezRamirezSebastian.DAL
                 _context.Services.Add(new Service { Name = "Lavada Full", Price = 65000 });
                 _context.Services.Add(new Service { Name = "Lavada en seco del Motor", Price = 80000 });
                 _context.Services.Add(new Service { Name = "Lavada Chasis", Price = 90000 });
-            }
-
-            await _context.SaveChangesAsync();
+            }            
         }
     }
 }

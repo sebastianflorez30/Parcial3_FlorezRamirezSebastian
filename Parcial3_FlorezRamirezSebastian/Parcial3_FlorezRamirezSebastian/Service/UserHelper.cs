@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Parcial3_FlorezRamirezSebastian.DAL;
 using Parcial3_FlorezRamirezSebastian.DAL.Entities;
 using Parcial3_FlorezRamirezSebastian.Helpers;
@@ -34,14 +35,15 @@ namespace Parcial3_FlorezRamirezSebastian.Service
             if (!roleExists) await _roleManager.CreateAsync(new IdentityRole { Name = roleName });
         }
 
-        public Task<User> GetUserAsync(string email)
+        public async Task<User> GetUserAsync(string email)
         {
-            throw new NotImplementedException();
+            return await _context.Users             
+                .FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public Task<bool> IsUserInRoleAsync(User user, string roleName)
+        public async Task<bool> IsUserInRoleAsync(User user, string roleName)
         {
-            throw new NotImplementedException();
+            return await _userManager.IsInRoleAsync(user, roleName);
         }
     }
 }

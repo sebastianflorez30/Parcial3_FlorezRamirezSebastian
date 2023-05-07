@@ -10,88 +10,86 @@ using Parcial3_FlorezRamirezSebastian.DAL.Entities;
 
 namespace Parcial3_FlorezRamirezSebastian.Controllers
 {
-    public class ServicesController : Controller
+    public class VehiclesController : Controller
     {
         private readonly DatabaseContext _context;
 
-        public ServicesController(DatabaseContext context)
+        public VehiclesController(DatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: Services
+        // GET: Vehicles
         public async Task<IActionResult> Index()
         {
-            return _context.Vehicles != null ?
-                          View(await _context.Services.ToListAsync()) :
-                          Problem("Entity set 'DatabaseContext.Services'  is null.");
+            return View(await _context.Vehicles.ToListAsync());                          
         }
 
-        // GET: Services/Details/5
+        // GET: Vehicles/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null || _context.Services == null)
+            if (id == null || _context.Vehicles == null)
             {
                 return NotFound();
             }
 
-            var service = await _context.Services
+            var vehicle = await _context.Vehicles
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (service == null)
+            if (vehicle == null)
             {
                 return NotFound();
             }
 
-            return View(service);
+            return View(vehicle);
         }
 
-        // GET: Services/Create
+        // GET: Vehicles/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Services/Create
+        // POST: Vehicles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Service service)
+        public async Task<IActionResult> Create(Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
-                service.Id = Guid.NewGuid();
-                _context.Add(service);
+                vehicle.Id = Guid.NewGuid();
+                _context.Add(vehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(service);
+            return View(vehicle);
         }
 
-        // GET: Services/Edit/5
+        // GET: Vehicles/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null || _context.Services == null)
+            if (id == null || _context.Vehicles == null)
             {
                 return NotFound();
             }
 
-            var service = await _context.Services.FindAsync(id);
-            if (service == null)
+            var vehicle = await _context.Vehicles.FindAsync(id);
+            if (vehicle == null)
             {
                 return NotFound();
             }
-            return View(service);
+            return View(vehicle);
         }
 
-        // POST: Services/Edit/5
+        // POST: Vehicles/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Name,Price,Id,CreatedDate,ModifiedDate")] Service service)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Owner,NumberPlate,Id,CreatedDate,ModifiedDate")] Vehicle vehicle)
         {
-            if (id != service.Id)
+            if (id != vehicle.Id)
             {
                 return NotFound();
             }
@@ -100,12 +98,12 @@ namespace Parcial3_FlorezRamirezSebastian.Controllers
             {
                 try
                 {
-                    _context.Update(service);
+                    _context.Update(vehicle);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ServiceExists(service.Id))
+                    if (!VehicleExists(vehicle.Id))
                     {
                         return NotFound();
                     }
@@ -116,49 +114,49 @@ namespace Parcial3_FlorezRamirezSebastian.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(service);
+            return View(vehicle);
         }
 
-        // GET: Services/Delete/5
+        // GET: Vehicles/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null || _context.Services == null)
+            if (id == null || _context.Vehicles == null)
             {
                 return NotFound();
             }
 
-            var service = await _context.Services
+            var vehicle = await _context.Vehicles
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (service == null)
+            if (vehicle == null)
             {
                 return NotFound();
             }
 
-            return View(service);
+            return View(vehicle);
         }
 
-        // POST: Services/Delete/5
+        // POST: Vehicles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            if (_context.Services == null)
+            if (_context.Vehicles == null)
             {
-                return Problem("Entity set 'DatabaseContext.Services'  is null.");
+                return Problem("Entity set 'DatabaseContext.Vehicles'  is null.");
             }
-            var service = await _context.Services.FindAsync(id);
-            if (service != null)
+            var vehicle = await _context.Vehicles.FindAsync(id);
+            if (vehicle != null)
             {
-                _context.Services.Remove(service);
+                _context.Vehicles.Remove(vehicle);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ServiceExists(Guid id)
+        private bool VehicleExists(Guid id)
         {
-          return (_context.Services?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Vehicles?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

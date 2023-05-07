@@ -12,7 +12,7 @@ using Parcial3_FlorezRamirezSebastian.DAL;
 namespace Parcial3_FlorezRamirezSebastian.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230507055543_InitialDatabase")]
+    [Migration("20230507151612_InitialDatabase")]
     partial class InitialDatabase
     {
         /// <inheritdoc />

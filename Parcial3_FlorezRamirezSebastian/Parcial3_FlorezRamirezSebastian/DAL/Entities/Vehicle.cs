@@ -6,12 +6,12 @@ namespace Parcial3_FlorezRamirezSebastian.DAL.Entities
     public class Vehicle:Entity //Creacion Entidades : Herencia 
     {
         [Display(Name = "Propietario")]
-        [Required(ErrorMessage ="El campo {0} es obligatorio")]
+        [Required(ErrorMessage = "El campo {0} es oblilgatorio.")]
         public string Owner { get; set; }
 
 
         [Display(Name = "Placa")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Required(ErrorMessage = "El campo {0} es oblilgatorio.")]
         public string NumberPlate { get; set; } 
 
         public Service Service { get; set; } //clave foranea servicios
